@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'name'        => 'YFCMF-TP6',
+  'name'        => '管理端',
   'beian'       => '',
   'cdnurl'      => '',
   'version'     => '1.0.1',

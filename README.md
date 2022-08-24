@@ -5,6 +5,7 @@
 [![fork](https://gitee.com/nymondo/yfcmf-tp6/badge/fork.svg?theme=dark)](https://gitee.com/nymondo/yfcmf-tp6/members)
 
 ## **YFCMF-TP6重要说明**
+## 毕业设计二次开发，毕业论文管理系统
 * 多层控制器路径“/”改成“.”，例如：auth/admin/index改成auth.admin/index，js文件里面同样要这样调整
 * auth_rule表增加route字段，创建菜单时，自动写入路由，为访问的url
 * 在线命令和插件都可以正常使用，插件和TP5.0版本不通用，需要简单调整后插件才可正常使用
