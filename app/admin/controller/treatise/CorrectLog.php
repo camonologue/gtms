@@ -2,6 +2,7 @@
 
 namespace app\admin\controller\treatise;
 
+use app\admin\model\Teacher;
 use app\common\controller\Backend;
 use \app\admin\model\Treatise;
 use think\Request;
@@ -26,7 +27,10 @@ class CorrectLog extends Backend
         }
         $this->view->assign('treatisedata', $treatisedata);
 
-        $teacherdata = [];
+        $re = Teacher::all();
+        foreach ($re as $k => $v) {
+            $teacherdata[$v['id']] = $v;
+        }
         $this->view->assign('teacherdata', $teacherdata);
 
     }

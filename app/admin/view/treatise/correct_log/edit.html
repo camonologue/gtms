@@ -24,7 +24,7 @@
             <select id="c-teacher" data-rule="required" class="form-control selectpicker" name="row[teacher_id]" >
                 <option>无</option>
                 {foreach name="teacherdata" item="vo"}
-                <option  value="{$vo.id}" {in name="key" value="$row.teacher_id"}selected{/in}>{$vo.title}</option>
+                <option  value="{$vo.id}" {in name="key" value="$row.teacher_id"}selected{/in}>{$vo.username}</option>
                 {/foreach}
             </select>
         </div>
