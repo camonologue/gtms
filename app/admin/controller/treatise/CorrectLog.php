@@ -63,6 +63,10 @@ class CorrectLog extends Backend
                         ($v->treatise)->user->hidden(['password', 'salt']);
                     }
                 }
+                if($v->teacher){
+                    $v->teacher->hidden(['', '']);
+                }
+
             }
 
             $result = ['total' => $total, 'rows' => $list];

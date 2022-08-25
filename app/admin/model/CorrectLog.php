@@ -22,4 +22,7 @@ class CorrectLog extends BaseModel
     public function treatise(){
         return $this->belongsTo(Treatise::class, 'treatise_id', 'id');
     }
+    public function teacher(){
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
+    }
 }
