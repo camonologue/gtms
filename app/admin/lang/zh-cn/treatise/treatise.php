@@ -6,5 +6,6 @@ return [
     'Title'                                       => '论文标题',
     'Download'                                    => '论文内容',
     'Createtime'                                  => '提交时间',
+    'Batch'                                       => '批次',
 
 ];

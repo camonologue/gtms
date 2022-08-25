@@ -5,13 +5,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
-                    index_url: 'category/index',
-                    add_url: 'category/add',
-                    edit_url: 'category/edit',
-                    del_url: 'category/del',
-                    multi_url: 'category/multi',
-                    dragsort_url: 'ajax/weigh',
-                    table: 'category',
+                    index_url: 'treatise.submit_log/index',
+                    multi_url: 'treatise.submit_log/multi',
+                    table: 'submit_log',
                 }
             });
 
@@ -20,22 +16,24 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 escape: false,
                 pk: 'id',
-                sortName: 'weigh',
-                pagination: false,
-                commonSearch: false,
-                search: false,
+                sortName: 'id',
                 columns: [
                     [
+                        // formatter: Table.api.formatter.normal // 翻译的地方
                         {checkbox: true},
                         {field: 'id', title: __('Id')},
-                        {field: 'type', title: __('Type'), operate: false, searchList: Config.searchList, formatter: Table.api.formatter.normal},
-                        {field: 'name', title: __('Name'), align: 'left'},
-                        {field: 'nickname', title: __('Nickname')},
-                        {field: 'flag', title: __('Flag'), formatter: Table.api.formatter.flag},
-                        {field: 'image', title: __('Image'), operate: false, events: Table.api.events.image, formatter: Table.api.formatter.image},
-                        {field: 'weigh', title: __('Weigh')},
-                        {field: 'status', title: __('Status'), operate: false, formatter: Table.api.formatter.status},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                        {field: 'user.username', title: __('Username'), operate: false, searchList: Config.searchList},
+                        {field: 'batch', title: __('Batch')},
+                        {field: 'download', title: __('Download')},
+                        {
+                            field: 'createtime',
+                            title: __('Createtime'),
+                            formatter: Table.api.formatter.datetime,
+                            operate: 'RANGE',
+                            addclass: 'datetimerange',
+                            sortable: true
+                        },
+
                     ]
                 ]
             };
@@ -62,27 +60,17 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
             });
 
-            //必须默认触发shown.bs.tab事件
-            // $('ul.nav-tabs li.active a[data-toggle="tab"]').trigger("shown.bs.tab");
-
+            // 为表格绑定事件
+            Table.api.bindevent(table);
         },
         add: function () {
             Controller.api.bindevent();
-            setTimeout(function () {
-                $("#c-type").trigger("change");
-            }, 100);
         },
         edit: function () {
             Controller.api.bindevent();
         },
         api: {
             bindevent: function () {
-                $(document).on("change", "#c-type", function () {
-                    $("#c-pid option[data-type='all']").prop("selected", true);
-                    $("#c-pid option").removeClass("hide");
-                    $("#c-pid option[data-type!='" + $(this).val() + "'][data-type!='all']").addClass("hide");
-                    $("#c-pid").data("selectpicker") && $("#c-pid").selectpicker("refresh");
-                });
                 Form.api.bindevent($("form[role=form]"));
             }
         }

@@ -27,6 +27,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'id', title: __('Id'), sortable: true},
                         {field: 'user.username', title: __('Username'), operate: 'LIKE'},
                         {field: 'title', title: __('Title'), operate: 'LIKE'},
+                        {field: 'batch', title: __('Batch'), operate: 'LIKE'},
                         {field: 'download', title: __('Download'), operate: 'LIKE'},
                         {
                             field: 'createtime',
