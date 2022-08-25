@@ -1,12 +1,12 @@
 <?php
+declare (strict_types = 1);
 
 namespace app\admin\controller\treatise;
 
+use app\admin\model\User as UserModel;
 use app\common\controller\Backend;
-use \app\admin\model\Treatise;
-use think\Request;
 
-class CorrectLog extends Backend
+class treatise extends Backend
 {
     protected $relationSearch = true;
 
@@ -18,17 +18,13 @@ class CorrectLog extends Backend
     {
         parent::_initialize();
 
-        $this->model = new \app\admin\model\CorrectLog();
+        $this->model = new \app\admin\model\Treatise();
 
-        $re = Treatise::all();
+        $re = UserModel::all();
         foreach ($re as $k => $v) {
-            $treatisedata[$v['id']] = $v;
+            $userdata[$v['id']] = $v;
         }
-        $this->view->assign('treatisedata', $treatisedata);
-
-        $teacherdata = [];
-        $this->view->assign('teacherdata', $teacherdata);
-
+        $this->view->assign('userdata', $userdata);
     }
     /**
      * 显示资源列表
@@ -46,24 +42,16 @@ class CorrectLog extends Backend
             }
             [$where, $sort, $order, $offset, $limit] = $this->buildparams();
             $total = $this->model
+                ->withJoin('user')
                 ->where($where)
                 ->order($sort, $order)
                 ->count();
             $list  = $this->model
                 ->limit($offset, $limit)
+                ->withJoin('user')
                 ->where($where)
                 ->order($sort, $order)
                 ->select();
-
-            // 数据处理
-            foreach ($list as $v) {
-                if($v->treatise){
-                    $v->treatise->hidden(['', '']);
-                    if (($v->treatise)->user){
-                        ($v->treatise)->user->hidden(['password', 'salt']);
-                    }
-                }
-            }
 
             $result = ['total' => $total, 'rows' => $list];
             return json($result);
@@ -71,4 +59,16 @@ class CorrectLog extends Backend
         return $this->view->fetch();
     }
 
+    /**
+     * 显示编辑资源表单页.
+     *
+     * @param int $id
+     * @return \think\Response
+     */
+//    public function edit($ids = NULL)
+//    {
+//        //
+//
+//        return parent::edit();
+//    }
 }

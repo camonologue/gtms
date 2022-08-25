@@ -37,7 +37,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             formatter: Table.api.formatter.image,
                             operate: false
                         },
-                        {field: 'level', title: __('Level'), operate: 'BETWEEN', sortable: true},
+                        {
+                            field: 'level',
+                            title: __('Level'),
+                            // searchList: {0:"学生", 1:"教师"}
+                        },
                         {
                             field: 'gender',
                             title: __('Gender'),
