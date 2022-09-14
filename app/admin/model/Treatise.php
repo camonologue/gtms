@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\admin\model;
 
+use app\common\model\Attachment;
 use app\common\model\BaseModel;
 use think\Model;
 
@@ -21,5 +22,8 @@ class Treatise extends BaseModel
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id')->joinType('LEFT');
+    }
+    public function attachment(){
+        return $this->belongsTo(Attachment::class, 'download', 'url')->joinType('LEFT');
     }
 }

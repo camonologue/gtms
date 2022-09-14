@@ -48,11 +48,21 @@ class treatise extends Backend
                 ->count();
             $list  = $this->model
                 ->limit($offset, $limit)
-                ->withJoin('user')
+
                 ->where($where)
                 ->order($sort, $order)
                 ->select();
 
+            if ($list) {
+                foreach ($list as $k => $v) {
+                    if ($v->user) {
+                        $v->user->hidden();
+                    }
+                    if ($v->attachment) {
+                        $v->attachment->hidden();
+                    }
+                }
+            }
             $result = ['total' => $total, 'rows' => $list];
             return json($result);
         }

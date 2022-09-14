@@ -10,7 +10,7 @@
         <div class="col-xs-12 col-sm-4">
 <!--            <input id="c-username" data-rule="required" class="form-control" name="row[id]" type="text" value="{$row.user.username}">-->
             <select id="c-username" data-rule="required" class="form-control selectpicker" name="row[user_id]" >
-                <option>无</option>
+                <option value="0">无</option>
                 {foreach name="userdata" item="vo"}
                 <option  value="{$vo.id}" {in name="key" value="$row.user_id"}selected{/in}>{$vo.username}</option>
                 {/foreach}

@@ -28,7 +28,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'user.username', title: __('Username'), operate: 'LIKE'},
                         {field: 'title', title: __('Title'), operate: 'LIKE'},
                         {field: 'batch', title: __('Batch'), operate: 'LIKE'},
-                        {field: 'download', title: __('Download'), operate: 'LIKE'},
+                        {field: 'download', title: __('Preview'), formatter: Controller.api.formatter.thumb, operate: false},
+                        {field: 'attachment.filename', title: __('Filename'), sortable: true, formatter: Controller.api.formatter.filename, operate: 'like'},
+                        {field: 'attachment.filename', title: __('Download'), sortable: true, formatter: Controller.api.formatter.download, operate: 'like'},
                         {
                             field: 'createtime',
                             title: __('Createtime'),
@@ -60,7 +62,23 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         api: {
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
+            },
+            formatter: {
+                thumb: function (value, row, index) {
+                    html = '<a href="' + row.download + '" target="_blank"><img src="' + Fast.api.fixurl("ajax/icon") + "?suffix=" + row.download + '" alt="" style="max-height:90px;max-width:120px"></a>';
+                    return '<div style="width:120px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">' + html + '</div>';
+                },
+                url: function (value, row, index) {
+                    return '<a href="' + row.fullurl + '" target="_blank" class="label bg-green">' + row.url + '</a>';
+                },
+                filename: function (value, row, index) {
+                    return '<div style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">' + row.attachment.filename + '</div>';
+                },
+                download: function (value, row, index) {
+                    return '<div style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;"><a href="http://phptestcen.com:803/' + row.download + '" title="' + row.attachment.filename + '">点击下载</a></div>';
+                },
             }
+
         }
     };
     return Controller;
