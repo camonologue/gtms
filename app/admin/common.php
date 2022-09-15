@@ -202,20 +202,27 @@ if (! function_exists('build_heading')) {
     function build_heading($path = null, $container = true)
     {
         $title = $content = '';
+        // is_null判斷是否為null
         if (is_null($path)) {
+            // action 获取当前的操作名
             $action = request()->action();
-            $controller = str_replace('.', '/', request()->controller());
+            // 函数替换字符串中的一些字符
+            $controller = str_replace('.', '/', request()->controller());   // controller 获取当前的控制器名
+            // strtolower() 函数把字符串转换为小写
             $path = strtolower($controller.($action && $action != 'index' ? '/'.$action : ''));
         }
         // 根据当前的URI自动匹配父节点的标题和备注
+        // 路由最后的index他不识别到$path中，所以查不到数据
         $data = Db::name('auth_rule')->where('name', $path)->field('title,remark')->find();
+//        dump($data);
+//        print_r($path);exit();
         if ($data) {
             $title = __($data['title']);
             $content = __($data['remark']);
         }
-        if (! $content) {
-            return '';
-        }
+//        if (! $content) {
+//            return '';
+//        }
         $result = '<div class="panel-lead"><em>'.$title.'</em>'.$content.'</div>';
         if ($container) {
             $result = '<div class="panel-heading">'.$result.'</div>';
