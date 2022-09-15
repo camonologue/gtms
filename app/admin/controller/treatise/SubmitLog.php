@@ -30,25 +30,24 @@ class SubmitLog extends Backend
             }
             [$where, $sort, $order, $offset, $limit] = $this->buildparams();
             $total = $this->model
-                ->withJoin('user')
                 ->where($where)
                 ->count();
             $list  = $this->model
                 ->limit($offset, $limit)
-                ->withJoin('user')
                 ->where($where)
                 ->select();
 
             // 数据处理
-//            foreach ($list as $v) {
-//                if($v->treatise){
-//                    $v->treatise->hidden(['', '']);
-//                    if (($v->treatise)->user){
-//                        ($v->treatise)->user->hidden(['password', 'salt']);
-//                    }
-//                }
-//            }
-
+            if ($list) {
+                foreach ($list as $k => $v) {
+                    if ($v->user) {
+                        $v->user->hidden();
+                    }
+                    if ($v->attachment) {
+                        $v->attachment->hidden();
+                    }
+                }
+            }
             $result = ['total' => $total, 'rows' => $list];
             return json($result);
         }

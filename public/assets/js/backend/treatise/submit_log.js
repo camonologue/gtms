@@ -24,7 +24,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'id', title: __('Id')},
                         {field: 'user.username', title: __('Username'), operate: false, searchList: Config.searchList},
                         {field: 'batch', title: __('Batch')},
-                        {field: 'download', title: __('Download')},
+                        {field: 'attachment.filename', title: __('Download'), sortable: true, formatter: Controller.api.formatter.download, operate: 'like'},
                         {
                             field: 'createtime',
                             title: __('Createtime'),
@@ -72,6 +72,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         api: {
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
+            },
+            formatter: {
+                download: function (value, row, index) {
+                    return '<div class="btn-download" style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;"><a src="javascript:;" href="download?filename=' + row.download + '&name=' + row.attachment.filename + '" title="' + row.attachment.filename + '">' + row.attachment.filename + '</a></div>';
+                },
             }
         }
     };

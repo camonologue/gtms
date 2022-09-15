@@ -52,6 +52,21 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 
             // 为表格绑定事件
             Table.api.bindevent(table);
+
+            // 表单点击事件
+            // $(document).on('click','.btn-download',function () {
+            //     $.ajax({
+            //         type : "get",			//以post方法提交数据给服务器
+            //         url : "treatise.treatise/downfile",				//提交数据到User
+            //         // responseType: "arraybuffer"
+            //         // dataType : "text",		//数据类型
+            //         // data : {						//传给服务器的数据
+            //         //     "name": $("#name").val(),
+            //         //     "password":$("#pwd").val()
+            //         // },
+            //     });
+            // });
+
         },
         add: function () {
             Controller.api.bindevent();
@@ -72,10 +87,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     return '<a href="' + row.fullurl + '" target="_blank" class="label bg-green">' + row.url + '</a>';
                 },
                 filename: function (value, row, index) {
-                    return '<div style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">' + row.attachment.filename + '</div>';
+                    return '<div style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;" target="_blank"><a href="' + row.download + '" title="' + row.attachment.filename + '">' + row.attachment.filename + '</a></div>';
                 },
                 download: function (value, row, index) {
-                    return '<div style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;"><a href="http://phptestcen.com:803/' + row.download + '" title="' + row.attachment.filename + '">点击下载</a></div>';
+                    //' + row.download + '
+                    return '<div class="btn-download" style="width:150px;margin:0 auto;text-align:center;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;"><a src="javascript:;" href="download?filename=' + row.download + '&name=' + row.attachment.filename + '" title="' + row.attachment.filename + '">点击下载</a></div>';
                 },
             }
 
@@ -83,3 +99,4 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
     };
     return Controller;
 });
+

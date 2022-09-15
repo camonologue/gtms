@@ -69,16 +69,4 @@ class treatise extends Backend
         return $this->view->fetch();
     }
 
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param int $id
-     * @return \think\Response
-     */
-//    public function edit($ids = NULL)
-//    {
-//        //
-//
-//        return parent::edit();
-//    }
 }

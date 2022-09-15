@@ -564,4 +564,21 @@ class Backend extends BaseController
         //刷新Token
         $this->request->buildToken();
     }
+
+    /**
+     * 下载
+     *
+     * @param string $filename  下载地址
+     * @param string $name  文件命名
+     * @return \think\Response
+     */
+    public function download()
+    {
+        // download是系统封装的一个助手函数
+        $filename = input('filename');
+        $name = input('name');
+        //删除字符串的第一个斜杠
+        $filename = substr($filename,1);
+        return download($filename, $name);
+    }
 }
