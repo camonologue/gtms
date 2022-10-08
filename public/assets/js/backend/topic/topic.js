@@ -14,16 +14,6 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             });
 
             var table = $("#table");
-
-            //在表格内容渲染完成后回调的事件
-            table.on('post-body.bs.table', function (e, json) {
-                $("tbody tr[data-index]", this).each(function () {
-                    if (parseInt($("td:eq(1)", this).text()) == Config.admin.id) {
-                        $("input[type=checkbox]", this).prop("disabled", true);
-                    }
-                });
-            });
-
             // 初始化表格
             table.bootstrapTable({
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
@@ -31,19 +21,29 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {field: 'state', checkbox: true,},
                         {field: 'id', title: 'ID'},
-                        {field: 'username', title: __('Username')},
-                        {field: 'nickname', title: __('Nickname')},
+                        {field: 'major_id', title: '专业代码'},
+                        {field: 'topic_batch', title: "课题批次"},
+                        {field: 'topic_name', title: '课题名称'},
+                        {field: 'topic_source', title: "课题来源"},
+                        {field: 'topic_cut', title: '课题类型'},
+                        {field: 'topic_details', title: '课题介绍'},
+                        {field: 'teacher.username', title: "创建人"},
                         {
-                            field: 'groups_text',
-                            title: __('Group'),
-                            operate: false,
-                            formatter: Table.api.formatter.label
+                            field: 'enable', 
+                            title: '是否启用',
+                            searchList: {1: '是', 0: '否'}
                         },
-                        {field: 'email', title: __('Email')},
-                        {field: 'status', title: __("Status"), formatter: Table.api.formatter.status},
                         {
-                            field: 'logintime',
-                            title: __('Login time'),
+                            field: 'createtime',
+                            title: "创建时间",
+                            formatter: Table.api.formatter.datetime,
+                            operate: 'RANGE',
+                            addclass: 'datetimerange',
+                            sortable: true
+                        },
+                        {
+                            field: 'updatetime',
+                            title: "更新时间",
                             formatter: Table.api.formatter.datetime,
                             operate: 'RANGE',
                             addclass: 'datetimerange',
@@ -54,12 +54,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                             title: __('Operate'),
                             table: table,
                             events: Table.api.events.operate,
-                            formatter: function (value, row, index) {
-                                if (row.id == Config.admin.id) {
-                                    return '';
-                                }
-                                return Table.api.formatter.operate.call(this, value, row, index);
-                            }
+                            formatter: Table.api.formatter.operate
                         }
                     ]
                 ]
@@ -73,6 +68,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         },
         edit: function () {
             Form.api.bindevent($("form[role=form]"));
+        },
+        api: {
+            bindevent: function () {
+                Form.api.bindevent($("form[role=form]"));
+            }
         }
     };
     return Controller;
