@@ -14,7 +14,7 @@
     <div class="form-group">
         <label for="c-topic_batch" class="control-label col-xs-12 col-sm-2">课题批次:</label>
         <div class="col-xs-12 col-sm-4">
-            <input id="c-topic_batch" data-rule="required" class="form-control" name="row[topic_batch]" type="text" value="{$row.topic_batch}" >
+            <input id="c-topic_batch" data-rule="required" class="form-control" name="row[topic_batch]" type="number" value="{$row.topic_batch}" >
         </div>
     </div>
     <div class="form-group">
@@ -50,6 +50,18 @@
                 <option  value="{$vo.id}" {in name="key" value="$row.create_id"}selected{/in}>{$vo.username}</option>
                 {/foreach}
             </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-quota" class="control-label col-xs-12 col-sm-2">名额数量:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-quota" data-rule="required" class="form-control" name="row[quota]" type="number" value="{$row.quota}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-leave_quota" class="control-label col-xs-12 col-sm-2">剩余数量:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-leave_quota" data-rule="required" class="form-control" name="row[leave_quota]" type="number" value="{$row.leave_quota}" >
         </div>
     </div>
     <div class="form-group">

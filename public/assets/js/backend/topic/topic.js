@@ -28,11 +28,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'topic_cut', title: '课题类型'},
                         {field: 'topic_details', title: '课题介绍'},
                         {field: 'teacher.username', title: "创建人"},
-                        // {
-                        //     field: 'enable', 
-                        //     title: '是否启用',
-                        //     searchList: {1: '是', 0: '否'}
-                        // },
+
+                        {field: 'quota', title: '名额数量'},
+                        {field: 'leave_quota', title: "剩余数量"},
                         {
                             field: 'enable',
                             title: '是否启用',
