@@ -5,6 +5,7 @@ namespace app\admin\controller\topic;
 
 use app\common\controller\Backend;
 use think\Request;
+use app\admin\model\Teacher;
 
 class Topic extends Backend
 {
@@ -15,6 +16,12 @@ class Topic extends Backend
     {
         parent::_initialize();
         $this->model = new \app\admin\model\Topic();
+
+        $re = Teacher::all();
+        foreach ($re as $k => $v) {
+            $teacherdata[$v['id']] = $v;
+        }
+        $this->view->assign('teacherdata', $teacherdata);
     }
     /**
      * 显示资源列表
@@ -33,92 +40,57 @@ class Topic extends Backend
             }
             [$where, $sort, $order, $offset, $limit] = $this->buildparams();
             $total = $this->model
-                ->withJoin('teacher')
+                // ->withJoin('teacher')
                 ->where($where)
                 ->order($sort, $order)
                 ->count();
             $list  = $this->model
                 ->limit($offset, $limit)
+                ->withJoin('teacher')
                 ->where($where)
                 ->order($sort, $order)
                 ->select();
 
-            if ($list) {
-                foreach ($list as $k => $v) {
-                    if ($v->teacher) {
-                        $v->teacher->hidden();
-                    }
-                }
-            }
+            // if ($list) {
+            //     foreach ($list as $k => $v) {
+            //         if ($v->teacher) {
+            //             $v->teacher->hidden();
+            //         }
+            //     }
+            // }
             $result = ['total' => $total, 'rows' => $list];
             return json($result);
         }
         return $this->view->fetch();
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // /**
+    //  * 添加
+    //  *
+    //  * @return \think\Response
+    //  */
+    // public function add()
+    // {
+    //     if ($this->request->isPost()) {
+    //         $this->token();
+    //         $params = $this->request->post('row/a');
+    //         if ($params) {
+    //             $params = $this->preExcludeFields($params);
+    //             //把数据转换成时间戳
+    //             $params['start_time'] = strtotime($params['start_time']);
+    //             $params['end_time'] = strtotime($params['end_time']);
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
+    //             if ($params['end_time'] <= $params['start_time']){
+    //                 $this->error('结束时间要大于开始时间！');
+    //             }
+    //         }
+    //     }
+    //     $row                 = $this->model->get($ids);
+    //     $this->modelValidate = true;
+    //     if (!$row) {
+    //         $this->error(__('No Results were found'));
+    //     }
+    //     return parent::add();
+    // }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($ids=null)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
-    }
 }

@@ -1,0 +1,68 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label for="c-id" class="control-label col-xs-12 col-sm-2">{:__('ID')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-id" data-rule="required" class="form-control" name="row[id]" type="text" value="{$row.id}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-major_id" class="control-label col-xs-12 col-sm-2">专业代码:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-major_id" data-rule="required" class="form-control" name="row[major_id]" type="text" value="{$row.major_id}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-topic_batch" class="control-label col-xs-12 col-sm-2">课题批次:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-topic_batch" data-rule="required" class="form-control" name="row[topic_batch]" type="text" value="{$row.topic_batch}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-topic_name" class="control-label col-xs-12 col-sm-2">课题名称:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-topic_name" data-rule="required" class="form-control" name="row[topic_name]" type="text" value="{$row.topic_name}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-topic_source" class="control-label col-xs-12 col-sm-2">课题来源:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-topic_source" data-rule="required" class="form-control" name="row[topic_source]" type="text" value="{$row.topic_source}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-topic_cut" class="control-label col-xs-12 col-sm-2">课题类型:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-topic_cut" data-rule="required" class="form-control" name="row[topic_cut]" type="text" value="{$row.topic_cut}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-topic_details" class="control-label col-xs-12 col-sm-2">课题介绍:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-topic_details" data-rule="required" class="form-control" name="row[topic_details]" type="text" value="{$row.topic_details}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-2">创建人:</label>
+        <div class="col-xs-12 col-sm-4">
+            <select id="c-username" data-rule="required" class="form-control selectpicker" name="row[create_id]" >
+                <option value="0">无</option>
+                {foreach name="teacherdata" item="vo"}
+                <option  value="{$vo.id}" {in name="key" value="$row.create_id"}selected{/in}>{$vo.username}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="c-title" class="control-label col-xs-12 col-sm-2">是否启用:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[enable]', ['1'=>__('Normal'), '0'=>'禁用'], $row['enable'])}
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
