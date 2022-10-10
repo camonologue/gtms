@@ -5,6 +5,7 @@ namespace app\admin\controller\topic;
 
 use app\common\controller\Backend;
 use think\Request;
+use think\facade\Db;
 use app\admin\model\Topic;
 use app\admin\model\User;
 
@@ -97,12 +98,50 @@ class Selected extends Backend
                     $this->error('该课题已满，请重试 ！！！');
                 }
                 $result = Topic::where('id',$params['topic_id'])->save(['leave_quota' => $res-1]);
-                if(!result){
+                if(!$result){
                     $this->error('添加失败，请重试 ！！！');
                 }
             }
         }
         return parent::add();
+    }
+    /**
+     * 修改
+     *
+     * @return \think\Response
+     */
+    public function edit($ids = null)
+    {
+        if ($this->request->isPost()) {
+            // $this->token();
+            $params = $this->request->post('row/a');
+            if ($params) {
+                $params = $this->preExcludeFields($params);
+                // 获取原来课题的id，并+1
+                $ret = Db::name('topic_selected')->where('id',$ids)->value('topic_id');
+                if(!$ret){
+                    $this->error('暂无该课题，请重试 ！！！');
+                }
+                // 查询id，并把数量-1
+                $res = Topic::where('id',$params['topic_id'])->value('leave_quota');
+                // $res = Topic::find($params['topic_id']);
+                if(!$res){
+                    $this->error('暂无该课题，请重试 ！！！');
+                }
+                if($res <= 0){
+                    $this->error('该课题已满，请重试 ！！！');
+                }
+                $is_incTopic = Topic::where('id',$ret)->inc('leave_quota')->update();
+                $result = Topic::where('id',$params['topic_id'])->save(['leave_quota' => $res-1]);
+                if(!$result){
+                    $this->error('修改失败，请重试 ！！！');
+                }
+                if(!$is_incTopic){
+                    $this->error('修改失败，请重试 ！！！');
+                }
+            }
+        }
+        return parent::edit($ids);
     }
 
 }
