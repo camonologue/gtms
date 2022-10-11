@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Frontend;
+use app\common\library\Excel;
 
 class Index extends Frontend
 {
@@ -21,4 +22,7 @@ class Index extends Frontend
 
         return jsonp(['newslist' => $newslist, 'new' => count($newslist), 'url' => 'https://www.iuok.cn?ref=news']);
     }
+
+
+
 }
