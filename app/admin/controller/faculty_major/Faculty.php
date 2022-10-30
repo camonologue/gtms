@@ -5,9 +5,9 @@ namespace app\admin\controller\faculty_major;
 
 use app\common\controller\Backend;
 use think\Request;
-use app\admin\model\Faculty;
+use app\admin\model\Teacher;
 
-class Major extends Backend
+class Faculty extends Backend
 {
 
     protected $model = null;
@@ -15,14 +15,13 @@ class Major extends Backend
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\Major();
+        $this->model = new \app\admin\model\Faculty();
 
-        $re = Faculty::where('status',1)->select();
-        $Facultydata = [];
-        foreach ($re as $k => $v) {
-            $Facultydata[$v['id']] = $v;
-        }
-        $this->view->assign('Facultydata', $Facultydata);
+        // $re = Teacher::all();
+        // foreach ($re as $k => $v) {
+        //     $teacherdata[$v['id']] = $v;
+        // }
+        // $this->view->assign('teacherdata', $teacherdata);
     }
     /**
      * 显示资源列表
@@ -49,14 +48,6 @@ class Major extends Backend
                 ->where($where)
                 ->order($sort, $order)
                 ->select();
-
-            if ($list) {
-                foreach ($list as $k => $v) {
-                    if ($v->faculty) {
-                        $v->faculty->hidden();
-                    }
-                }
-            }
             $result = ['total' => $total, 'rows' => $list];
             return json($result);
         }

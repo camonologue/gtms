@@ -137,7 +137,7 @@ header {
     width: 100%;
     min-height: auto;
     overflow-y: hidden;
-    background: url("../img/bg-pattern.png"), #7b4397;
+    background: url("../img/bg-pattern.png"), #feefff;
     /* fallback for old browsers */
     background: url("../img/bg-pattern.png"), -webkit-linear-gradient(to left, #328944, #247cdc);
     /* Chrome 10-25, Safari 5.1-6 */

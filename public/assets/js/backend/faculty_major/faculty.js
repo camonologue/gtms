@@ -5,11 +5,11 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
-                    index_url: 'faculty_major.major/index',
-                    add_url: 'faculty_major.major/add',
-                    edit_url: 'faculty_major.major/edit',
-                    del_url: 'faculty_major.major/del',
-                    multi_url: 'faculty_major.major/multi',
+                    index_url: 'faculty_major.faculty/index',
+                    add_url: 'faculty_major.faculty/add',
+                    edit_url: 'faculty_major.faculty/edit',
+                    del_url: 'faculty_major.faculty/del',
+                    multi_url: 'faculty_major.faculty/multi',
                 }
             });
 
@@ -20,10 +20,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {field: 'state', checkbox: true,},
-                        {field: 'id', title: '专业代码'},
-                        {field: 'name', title: '专业名称'},
-                        {field: 'detail', title: "专业简介"},
-                        {field: 'faculty.name', title: "所属院系"},
+                        {field: 'id', title: '学院代码'},
+                        {field: 'name', title: '学院名称'},
+                        {field: 'detail', title: "学院简介"},
                         {
                             field: 'status',
                             title: '是否启用',
